@@ -11,7 +11,7 @@ const Repos = ({ repos }) => {
   const paginatedData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * itemsPerPage;
     const lastPageIndex = firstPageIndex + itemsPerPage;
-    return repos.toString().slice(firstPageIndex, lastPageIndex);
+    return repos.slice(firstPageIndex, lastPageIndex);
   }, [itemsPerPage, currentPage, repos]);
 
 
