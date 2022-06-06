@@ -13,14 +13,13 @@ const App = () => {
   return (
     <GithubActions>
       <AlertProvider>
-        <BrowserRouter>
+        <BrowserRouter basename="/react-ghApi">
           <div className="App">
             <Navbar />
             <div className="container">
               <Alert />
-              <Routes>
+              <Routes >
 								<Route path='/' element={<Home />} />
-                <Route path='/react-ghApi' element={<Home />} />
 								<Route path='/user/:id' element={<User />} />
 								<Route path='/ErrorPage' element={<ErrorPage />} />
 								<Route path='/*' element={<ErrorPage />} />
