@@ -20,6 +20,7 @@ const App = () => {
               <Alert />
               <Routes>
 								<Route path='/' element={<Home />} />
+                <Route path='/react-ghApi' element={<Home />} />
 								<Route path='/user/:id' element={<User />} />
 								<Route path='/ErrorPage' element={<ErrorPage />} />
 								<Route path='/*' element={<ErrorPage />} />
