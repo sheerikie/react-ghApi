@@ -20,7 +20,7 @@ test('renders the landing page', async () => {
    expect(screen.getByRole("button")).toBeInTheDocument();
 });
 
-test("should be able to search and display dog image results", async () => {
+test("should be able to search and display loading", async () => {
 
     const setSearch = jest.fn((value) => {})
     

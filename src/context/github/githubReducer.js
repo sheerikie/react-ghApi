@@ -5,33 +5,29 @@ const GithubReducer =(state, action) => {
     case ActionTypes.CLEAR_USERS:
       return {
         ...state,
-        loading: false,
         users: [],
-        
+        loading: false,
       };
 
     case ActionTypes.GET_USER:
       return {
         ...state,
-        loading: false,
         user: action.payload,
-     
+        loading: false,
       };
 
     case ActionTypes.GET_REPOS:
       return {
         ...state,
-        loading: false,
         repos: action.payload,
-      
+        loading: false,
       };
 
     case ActionTypes.SEARCH_USERS:
       return {
         ...state,
-        loading: false,
         users: action.payload,
-       
+        loading: false,
       };
 
     case ActionTypes.SET_LOADING:

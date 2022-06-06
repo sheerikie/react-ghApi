@@ -31,7 +31,7 @@ const User = () => {
   useEffect(() => {
     getUser(params.id);
     getUserRepos(params.id);
-  }, [getUser,getUserRepos,params.id]);
+  }, []);
 
   if (loading) return <h3 style={Loader.loaderStyle }>Loading ......</h3>;
 

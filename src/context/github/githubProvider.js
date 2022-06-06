@@ -3,8 +3,16 @@ import GithubContext from './githubContext';
 import GithubReducer from './githubReducer';
 import * as ActionTypes from '../actionTypes';
 
-  const githubUrl = process.env.REACT_APP_GITHUB_CLIENT_ID;
-  const githubToken = process.env.REACT_APP_GITHUB_CLIENT_SECRET;
+let githubClientId;
+let githubClientSecret;
+
+if (process.env.NODE_ENV !== 'production') {
+  githubClientId = process.env.REACT_APP_GITHUB_CLIENT_ID;
+  githubClientSecret = process.env.REACT_APP_GITHUB_CLIENT_SECRET;
+} else {
+  githubClientId = process.env.GITHUB_CLIENT_ID;
+  githubClientSecret = process.env.GITHUB_CLIENT_SECRET;
+}
 
 const GithubActions = props => {
   const initialState = {
@@ -20,7 +28,7 @@ const GithubActions = props => {
   const profileSearch = async text => {
     setLoading();
 
-    const url = `https://api.github.com/search/users?q=${text}&client_id=${githubUrl}&client_secret=${githubToken}`;
+    const url = `https://api.github.com/search/users?q=${text}&client_id=${githubClientId}&client_secret=${githubClientSecret}`;
 
   
     const response = await fetch(url);
@@ -35,7 +43,7 @@ const GithubActions = props => {
   // Get User
   const getUser = async username => {
     setLoading();
-    const url = `https://api.github.com/users/${username}?client_id=${githubUrl}&client_secret=${githubToken}`;
+    const url = `https://api.github.com/users/${username}?client_id=${githubClientId}&client_secret=${githubClientSecret}`;
   
     const response = await fetch(url);
     let res = await response.json()
@@ -50,7 +58,7 @@ const GithubActions = props => {
   const getUserRepos = async username => {
     setLoading();
 
-    const url = `https://api.github.com/users/${username}/repos?per_page=15&sort=created:asc&client_id=${githubUrl}&client_secret=${githubToken}`;
+    const url = `https://api.github.com/users/${username}/repos?per_page=15&sort=created:asc&client_id=${githubClientId}&client_secret=${githubClientSecret}`;
 
     const response = await fetch(url);
     let res = await response.json()
@@ -72,10 +80,10 @@ const GithubActions = props => {
         user: state.user,
         repos: state.repos,
         loading: state.loading,
+        profileSearch,
+        removeResults,
         getUser,
         getUserRepos,
-        profileSearch,
-        removeResults
       }}
     >
       {props.children}
