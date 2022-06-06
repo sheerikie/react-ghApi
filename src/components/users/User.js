@@ -9,6 +9,8 @@ const User = () => {
   const githubContext = useContext(GithubContext);
   const {
     getUser,
+    repos,
+    getUserRepos,
     loading,
     user: {
       login,
@@ -24,8 +26,7 @@ const User = () => {
       location,
       name,
     },
-    repos,
-    getUserRepos,
+ 
   } = githubContext;
   const params = useParams();
   useEffect(() => {
@@ -95,6 +96,7 @@ const User = () => {
         <div className="badge badge-primary">Followers: {followers}</div>
         <div className="badge badge-success">Following: {following}</div>
       </div>
+      {repos}
       <Repos repos={repos} />
     </>
   );
