@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useContext } from 'react';
 import { useParams} from 'react-router-dom';
 import Repos from '../repos/Repos';
@@ -8,9 +9,7 @@ import Loader from '../utilities/loader';
 const User = () => {
   const githubContext = useContext(GithubContext);
   const {
-    getUser,
-    repos,
-    getUserRepos,
+    getUser,  
     loading,
     user: {
       login,
@@ -26,13 +25,14 @@ const User = () => {
       location,
       name,
     },
- 
+    repos,  
+    getUserRepos
   } = githubContext;
   const params = useParams();
   useEffect(() => {
     getUser(params.id);
     getUserRepos(params.id);
-  }, [getUser, getUserRepos, params.id,loading]);
+  }, []);
 
   if (loading) return <h3 style={Loader.loaderStyle }>Loading ......</h3>;
 
@@ -96,7 +96,6 @@ const User = () => {
         <div className="badge badge-primary">Followers: {followers}</div>
         <div className="badge badge-success">Following: {following}</div>
       </div>
-      {repos}
       <Repos repos={repos} />
     </>
   );

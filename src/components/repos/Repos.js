@@ -6,6 +6,7 @@ import Pagination from '../utilities/Pagination.js';
 const Repos = ({ repos }) => {
 
   const [currentPage, setCurrentPage] = useState(1);
+
   let itemsPerPage = 6;
   const paginatedData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * itemsPerPage;

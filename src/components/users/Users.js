@@ -23,7 +23,7 @@ const Users = () => {
       <p>You have {users.length} Results</p>
     <div style={Users.userStyle}>
       {paginatedData && paginatedData.map(user => (
-        <UserItem key={user.id} user={user} />
+        <UserItem key={user.login} user={user} />
       ))}
     </div>
       <Pagination

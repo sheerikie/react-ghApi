@@ -3,16 +3,7 @@ import GithubContext from './githubContext';
 import GithubReducer from './githubReducer';
 import * as ActionTypes from '../actionTypes';
 
-let githubClientId;
-let githubClientSecret;
-
-if (process.env.NODE_ENV !== 'production') {
-  githubClientId = process.env.REACT_APP_GITHUB_CLIENT_ID;
-  githubClientSecret = process.env.REACT_APP_GITHUB_CLIENT_SECRET;
-} else {
-  githubClientId = process.env.GITHUB_CLIENT_ID;
-  githubClientSecret = process.env.GITHUB_CLIENT_SECRET;
-}
+ 
 
 const GithubActions = props => {
   const initialState = {
@@ -21,14 +12,21 @@ const GithubActions = props => {
     repos: [],
     loading: false,
   };
+  const githubUrl = process.env.REACT_APP_GITHUB_CLIENT_ID;
+  const githubToken = process.env.REACT_APP_GITHUB_CLIENT_SECRET;
+
+  let newid=githubUrl;
+  let newtoken=githubToken;
 
   const [state, dispatch] = useReducer(GithubReducer, initialState);
+
+
 
   // Search Users
   const profileSearch = async text => {
     setLoading();
 
-    const url = `https://api.github.com/search/users?q=${text}&client_id=${githubClientId}&client_secret=${githubClientSecret}`;
+    const url = `https://api.github.com/search/users?q=${text}&client_id=${githubUrl}&client_secret=${githubToken}`;
 
   
     const response = await fetch(url);
@@ -39,11 +37,23 @@ const GithubActions = props => {
       payload: res.items,
     });
   };
+  // Get Repos
+  const getUserRepos = async username => {
+    setLoading();
 
+    const url = `https://api.github.com/users/${username}/repos?per_page=15&sort=created:asc&client_id=${newid}&client_secret=${newtoken}`;
+
+    const response = await fetch(url);
+    let res = await response.json()
+    dispatch({
+      type: ActionTypes.GET_REPOS,
+      payload: res,
+    });
+  };
   // Get User
   const getUser = async username => {
     setLoading();
-    const url = `https://api.github.com/users/${username}?client_id=${githubClientId}&client_secret=${githubClientSecret}`;
+    const url = `https://api.github.com/users/${username}?client_id=${githubUrl}&client_secret=${githubToken}`;
   
     const response = await fetch(url);
     let res = await response.json()
@@ -54,19 +64,7 @@ const GithubActions = props => {
     });
   };
 
-  // Get Repos
-  const getUserRepos = async username => {
-    setLoading();
 
-    const url = `https://api.github.com/users/${username}/repos?per_page=15&sort=created:asc&client_id=${githubClientId}&client_secret=${githubClientSecret}`;
-
-    const response = await fetch(url);
-    let res = await response.json()
-    dispatch({
-      type: ActionTypes.GET_REPOS,
-      payload: res,
-    });
-  };
 
   // Clear Users
   const removeResults = () => dispatch({ type: ActionTypes.CLEAR_USERS });
@@ -80,10 +78,10 @@ const GithubActions = props => {
         user: state.user,
         repos: state.repos,
         loading: state.loading,
-        profileSearch,
-        removeResults,
         getUser,
         getUserRepos,
+        profileSearch,
+        removeResults
       }}
     >
       {props.children}
