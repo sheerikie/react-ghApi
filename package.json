@@ -1,6 +1,6 @@
 {
   "name": "gh-search",
-  "homepage": "https://sheerikie.github.io/react-ghApi",
+  "homepage": ".",
   "version": "0.1.0",
   "private": false,
   "dependencies": {
