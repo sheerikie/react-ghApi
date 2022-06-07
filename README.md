@@ -28,6 +28,6 @@ Launches Cypress Tests
 
 # How to use the app
 
-1. Incase you need to change color or turn the bulb ON/OFF ,double Click on the bulb
-2. If you need to change size,use the input text inside the circle and press Enter
-3. you will notice the bulb is not working,by not flickering
+1. Search For User in Github
+2. Choose User and get redirected to profile
+3. View Profile and get redirected to Github Profile
